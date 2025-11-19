@@ -1,7 +1,7 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 async function request(path, options = {}) {
-  const res = await fetch(`${API_URL}${path}`, {
+  const res = await fetch(`${API_URL}/api${path}`, {
     headers: { 'Content-Type': 'application/json' },
     ...options
   });
@@ -10,7 +10,9 @@ async function request(path, options = {}) {
     const error = await res.json().catch(() => ({}));
     throw new Error(error.error || 'Error en la petición');
   }
+
   if (res.status === 204) return null;
+
   return res.json();
 }
 
